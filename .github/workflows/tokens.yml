@@ -32,7 +32,7 @@ jobs:
 
       # 4. Install Style Dictionary (local only, won't be committed)
       - name: Install Style Dictionary
-        run: npm install style-dictionary
+        run: npm install --no-save style-dictionary
 
       # 5. Build CSS variables
       - name: Build CSS tokens
