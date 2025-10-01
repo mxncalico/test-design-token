@@ -38,6 +38,12 @@ jobs:
       - name: Build CSS tokens
         run: npx style-dictionary build --config style-dictionary.config.json
 
+      # 5b. Clean up node_modules and lockfiles
+      - name: Clean up node_modules
+        run: |
+          rm -rf node_modules
+          rm -f package-lock.json
+
       # 6. Commit changes on a new branch (only JSON + CSS)
       - name: Commit changes
         run: |
