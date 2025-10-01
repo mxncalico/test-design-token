@@ -34,7 +34,7 @@ jobs:
 
       # 5. Build CSS variables
       - name: Build CSS tokens
-        run: npx style-dictionary build
+        run: npx style-dictionary build --config style-dictionary.config.json
 
       # 6. Commit changes on a new branch
       - name: Commit changes
@@ -57,3 +57,6 @@ jobs:
           title: ${{ github.event.client_payload.commitMessage || 'Update design tokens' }}
           body: "This PR updates the design tokens and generated CSS from the Figma Design Tokens plugin."
           base: main
+
+      - name: Debug repo files
+        run: ls -R
