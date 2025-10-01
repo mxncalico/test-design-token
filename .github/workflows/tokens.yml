@@ -44,18 +44,7 @@ jobs:
           rm -rf node_modules
           rm -f package-lock.json
 
-      # 6. Commit changes on a new branch (only JSON + CSS)
-      - name: Commit changes
-        run: |
-          BRANCH="update-tokens-${{ github.run_id }}"
-          git checkout -b $BRANCH
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add design-tokens.json build/css/
-          git commit -m "${{ github.event.client_payload.commitMessage || 'Update design tokens' }}" || echo "No changes to commit"
-          git push origin $BRANCH
-
-      # 7. Open a Pull Request (manual merge later)
+      # Commit and create PR (only JSON + CSS)
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
@@ -65,4 +54,6 @@ jobs:
           title: ${{ github.event.client_payload.commitMessage || 'Update design tokens' }}
           body: "This PR updates the design tokens and generated CSS from the Figma Design Tokens plugin."
           base: main
-          draft: false
+          add-paths: |
+            design-tokens.json
+            variables.css
