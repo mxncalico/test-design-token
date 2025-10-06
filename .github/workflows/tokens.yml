@@ -34,11 +34,6 @@ jobs:
       - name: Install Style Dictionary
         run: npm install --no-save style-dictionary
 
-      # 4b. Create minimal package.json so Node treats .js as ESM
-      - name: Create package.json
-        run: |
-          echo '{ "type": "module" }' > package.json
-
       # 5. Build CSS variables
       - name: Build CSS tokens
         run: node build.mjs
