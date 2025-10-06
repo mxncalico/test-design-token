@@ -1,15 +1,16 @@
-import StyleDictionary from 'style-dictionary';
+const StyleDictionary = require('style-dictionary');
 
+// Custom transform: strip top-level collection name
 StyleDictionary.registerTransform({
   name: 'name/no-collection',
   type: 'name',
   transformer: (token) => {
-    const path = token.path.slice(1); // remove the top-level key
-    return path.join('-');
+    const path = token.path.slice(1); // remove the first key (collection)
+    return path.join('-'); // join remaining path with hyphens
   }
 });
 
-export default {
+module.exports = {
   source: ["design-tokens.json"],
   platforms: {
     css: {
