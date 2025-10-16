@@ -102,9 +102,9 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: ${{ github.event.client_payload.commitMessage || 'Update ${{ github.event.action }}' }}
+          commit-message: ${{ github.event.client_payload.commitMessage || format('Update {0}', github.event.action) }}
           branch: ${{ github.event.action }}_${{ github.run_id }}
-          title: ${{ github.event.client_payload.commitMessage || 'Update ${{ github.event.action }}' }}
+          title: ${{ github.event.client_payload.commitMessage || format('Update {0}', github.event.action) }}
           body: "This PR updates the design tokens and generated CSS from the Figma Design Tokens plugin."
           base: main
           add-paths: |
