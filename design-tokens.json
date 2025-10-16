@@ -23,6 +23,11 @@
       "description": "",
       "type": "dimension",
       "value": "{border.md}"
+    },
+    "lg": {
+      "description": "",
+      "type": "dimension",
+      "value": "{border.lg}"
     }
   }
 }
