@@ -34,6 +34,11 @@ jobs:
       - name: Install Style Dictionary
         run: npm install --no-save style-dictionary
 
+      # 4.5 Flatten token JSON (remove "primitive" and "tokens" keys)
+      - name: Flatten token JSON
+        run: |
+          jq '.primitive + .tokens' design-tokens.json > tmp.json && mv tmp.json design-tokens.json
+
       # 5. Build CSS variables
       - name: Build CSS tokens
         run: npx style-dictionary build --config style-dictionary.config.json
