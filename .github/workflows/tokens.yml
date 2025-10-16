@@ -74,6 +74,7 @@ jobs:
               "css": {
                 "transformGroup": "css",
                 "buildPath": "${{ github.event.action }}/",
+                "transforms": ["attribute/cti", "name/cti/kebab", "size/px"],
                 "files": [
                   {
                     "destination": "${{ github.event.action }}.css",
