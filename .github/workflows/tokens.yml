@@ -44,7 +44,25 @@ jobs:
       # 4.5 Flatten token JSON (remove "primitive" and "tokens" keys)
       - name: Flatten token JSON and fix references
         run: |
-          jq '(.primitive + .tokens) | tostring | gsub("\\{primitive\\."; "{") | fromjson' ${{ github.event.action }}/${{ github.event.action }}.json > tmp.json && mv tmp.json ${{ github.event.action }}/${{ github.event.action }}.json
+         jq '
+            # Merge primitive and tokens
+            (.primitive + .tokens) as $merged |
+          
+            # Recursive function to replace references
+            def replace_refs:
+              if type == "string" then
+                gsub("\\{(primitive|tokens)\\."; "{")
+              elif type == "object" then
+                with_entries(.value |= replace_refs)
+              elif type == "array" then
+                map(replace_refs)
+              else
+                .
+              end;
+          
+            # Apply recursive replacement to merged object
+            $merged | replace_refs
+          ' ${{ github.event.action }}/${{ github.event.action }}.json > tmp.json && mv tmp.json ${{ github.event.action }}/${{ github.event.action }}.json
 
       # 4.6 Create dynamic Style Dictionary config
       - name: Create dynamic Style Dictionary config
