@@ -1,78 +1,28 @@
 {
-  "primitive": {
-    "color": {
-      "brand": {
-        "100": {
-          "type": "color",
-          "value": "#e3f1fbff",
-          "blendMode": "normal"
-        },
-        "200": {
-          "type": "color",
-          "value": "#88d1f1ff",
-          "blendMode": "normal"
-        },
-        "300": {
-          "type": "color",
-          "value": "#21a1d6ff",
-          "blendMode": "normal"
-        },
-        "400": {
-          "type": "color",
-          "value": "#116893ff",
-          "blendMode": "normal"
-        },
-        "500": {
-          "type": "color",
-          "value": "#154a65ff",
-          "blendMode": "normal"
-        }
-      },
-      "neutral": {
-        "100": {
-          "type": "color",
-          "value": "#ffffffff",
-          "blendMode": "normal"
-        },
-        "200": {
-          "type": "color",
-          "value": "#a6b4baff",
-          "blendMode": "normal"
-        },
-        "300": {
-          "type": "color",
-          "value": "#515f69ff",
-          "blendMode": "normal"
-        }
-      }
+  "border": {
+    "sm": {
+      "type": "dimension",
+      "value": 2
     },
-    "border": {
-      "sm": {
-        "type": "dimension",
-        "value": 2
-      },
-      "md": {
-        "type": "dimension",
-        "value": 4
-      },
-      "lg": {
-        "type": "dimension",
-        "value": 16
-      }
+    "md": {
+      "type": "dimension",
+      "value": 4
+    },
+    "lg": {
+      "type": "dimension",
+      "value": 16
     }
   },
-  "tokens": {
-    "neutral": {
-      "100": {
-        "description": "",
-        "type": "color",
-        "value": "{primitive.color.brand.200}"
-      },
-      "200": {
-        "description": "",
-        "type": "color",
-        "value": "{primitive.color.brand.500}"
-      }
+  "border-width": {
+    "sm": {
+      "description": "",
+      "type": "dimension",
+      "value": "{border.sm}"
+    },
+    "md": {
+      "description": "",
+      "type": "dimension",
+      "value": "{border.md}"
     }
   }
 }
