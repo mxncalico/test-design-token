@@ -2,7 +2,12 @@ name: Update Design Tokens
 
 on:
   repository_dispatch:
-    types: [update-tokens]
+    types: 
+      - qclgu_design_tokens
+      - mandalgu_design_tokens
+      - paranaquelgu_design_tokens
+      - cgtlgu_design_tokens
+      - sjdmlgu_design_tokens
 
 permissions:
   contents: write
@@ -22,7 +27,8 @@ jobs:
       # 2. Save tokens (pretty JSON)
       - name: Save tokens file
         run: |
-          echo '${{ github.event.client_payload.tokens }}' | jq . > design-tokens.json
+          mkdir -p ${{ github.event.action }}
+          echo '${{ github.event.client_payload.tokens }}' | jq . > ${{ github.event.action }}/${{ github.event.action }}.json
 
       # 3. Set up Node.js
       - name: Set up Node.js
@@ -37,7 +43,7 @@ jobs:
       # 4.5 Flatten token JSON (remove "primitive" and "tokens" keys)
       - name: Flatten token JSON and fix references
         run: |
-          jq '(.primitive + .tokens) | tostring | gsub("\\{primitive\\."; "{") | fromjson' design-tokens.json > tmp.json && mv tmp.json design-tokens.json
+          jq '(.primitive + .tokens) | tostring | gsub("\\{primitive\\."; "{") | fromjson' ${{ github.event.action }}/${{ github.event.action }}.json > tmp.json && mv tmp.json ${{ github.event.action }}/${{ github.event.action }}.json
 
       # 5. Build CSS variables
       - name: Build CSS tokens
@@ -54,11 +60,11 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: ${{ github.event.client_payload.commitMessage || 'Update design tokens' }}
-          branch: update-tokens-${{ github.run_id }}
-          title: ${{ github.event.client_payload.commitMessage || 'Update design tokens' }}
+          commit-message: ${{ github.event.client_payload.commitMessage || 'Update ${{ github.event.action }}' }}
+          branch: ${{ github.event.action }}_${{ github.run_id }}
+          title: ${{ github.event.client_payload.commitMessage || 'Update ${{ github.event.action }}' }}
           body: "This PR updates the design tokens and generated CSS from the Figma Design Tokens plugin."
           base: main
           add-paths: |
-            design-tokens.json
-            variables.css
+            ${{ github.event.action }}/${{ github.event.action }}.json
+            ${{ github.event.action }}/${{ github.event.action }}.css
