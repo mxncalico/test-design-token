@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   update:
+    name: Update Design Tokens
     runs-on: ubuntu-latest
 
     steps:
