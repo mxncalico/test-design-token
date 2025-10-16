@@ -72,8 +72,9 @@ jobs:
             "source": ["${{ github.event.action }}/${{ github.event.action }}.json"],
             "platforms": {
               "css": {
-                "transformGroup": "size/px",
+                "transformGroup": "css",
                 "buildPath": "${{ github.event.action }}/",
+                "transforms": ["attribute/cti", "name/kebab", "size/rem"],
                 "files": [
                   {
                     "destination": "${{ github.event.action }}.css",
