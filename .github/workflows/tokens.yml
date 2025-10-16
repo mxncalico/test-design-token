@@ -45,9 +45,31 @@ jobs:
         run: |
           jq '(.primitive + .tokens) | tostring | gsub("\\{primitive\\."; "{") | fromjson' ${{ github.event.action }}/${{ github.event.action }}.json > tmp.json && mv tmp.json ${{ github.event.action }}/${{ github.event.action }}.json
 
+      # 4.6 Create dynamic Style Dictionary config
+      - name: Create dynamic Style Dictionary config
+        run: |
+          cat > style-dictionary.config.json <<EOL
+          {
+            "source": ["${{ github.event.action }}/${{ github.event.action }}.json"],
+            "platforms": {
+              "css": {
+                "transformGroup": "css",
+                "buildPath": "${{ github.event.action }}/",
+                "files": [
+                  {
+                    "destination": "${{ github.event.action }}.css",
+                    "format": "css/variables",
+                    "options": { "outputReferences": true }
+                  }
+                ]
+              }
+            }
+          }
+          EOL
+    
       # 5. Build CSS variables
       - name: Build CSS tokens
-        run: npx style-dictionary build --config style-dictionary.config.js
+        run: npx style-dictionary build --config style-dictionary.config.json
 
       # 5b. Clean up node_modules and lockfiles
       - name: Clean up node_modules
