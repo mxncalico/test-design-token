@@ -8,4 +8,5 @@
   --border-lg: 16rem;
   --border-width-sm: var(--border-sm);
   --border-width-md: var(--border-md);
+  --border-width-lg: var(--border-lg);
 }
