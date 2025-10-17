@@ -26,7 +26,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 2. Save tokens (pretty JSON)
+      # 2. Save tokens (pretty JSON) + create new folder if event type doesn't exist yet
       - name: Save tokens file
         run: |
           mkdir -p ${{ github.event.action }}
@@ -42,14 +42,14 @@ jobs:
       - name: Install Style Dictionary
         run: npm install --no-save style-dictionary
 
-      # 4.55 Optional: convert numbers to px
+      # 4.1. Append px to numeric values
       - name: Append px to numeric values
         run: |
           jq 'walk(
                 if type=="number" then tostring + "px" else . end
               )' ${{ github.event.action }}/${{ github.event.action }}.json > tmp.json && mv tmp.json ${{ github.event.action }}/${{ github.event.action }}.json
               
-      # 4.6 Create dynamic Style Dictionary config
+      # 4.2. Create dynamic Style Dictionary config
       - name: Create dynamic Style Dictionary config
         run: |
           cat > style-dictionary.config.json <<EOL
@@ -76,13 +76,13 @@ jobs:
       - name: Build CSS tokens
         run: npx style-dictionary build --config style-dictionary.config.json --verbose
 
-      # 5b. Clean up node_modules and lockfiles
+      # 6. Clean up node_modules and lockfiles
       - name: Clean up node_modules
         run: |
           rm -rf node_modules
           rm -f package-lock.json
 
-      # Commit and create PR (only JSON + CSS)
+      # 7. Commit and create PR (only JSON + CSS)
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
