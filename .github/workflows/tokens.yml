@@ -73,7 +73,7 @@ jobs:
     
       # 5. Build CSS variables
       - name: Build CSS tokens
-        run: npx style-dictionary build --config style-dictionary.config.json
+        run: npx style-dictionary build --config style-dictionary.config.json --verbose
 
       # 5b. Clean up node_modules and lockfiles
       - name: Clean up node_modules
