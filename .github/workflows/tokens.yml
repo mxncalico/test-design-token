@@ -64,6 +64,13 @@ jobs:
             $merged | replace_refs
           ' ${{ github.event.action }}/${{ github.event.action }}.json > tmp.json && mv tmp.json ${{ github.event.action }}/${{ github.event.action }}.json
 
+      # 4.55 Optional: convert numbers to px
+      - name: Append px to numeric values
+        run: |
+          jq 'walk(
+                if type=="number" then tostring + "px" else . end
+              )' ${{ github.event.action }}/${{ github.event.action }}.json > tmp.json && mv tmp.json ${{ github.event.action }}/${{ github.event.action }}.json
+              
       # 4.6 Create dynamic Style Dictionary config
       - name: Create dynamic Style Dictionary config
         run: |
