@@ -8,6 +8,7 @@ on:
       - paranaquelgu_design_tokens
       - cgtlgu_design_tokens
       - sjdmlgu_design_tokens
+      - genericlgu_design_tokens
 
 permissions:
   contents: write
