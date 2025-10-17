@@ -30,7 +30,7 @@ jobs:
       - name: Save tokens file
         run: |
           mkdir -p ${{ github.event.action }}
-          echo '${{ github.event.client_payload.tokens }}' | jq . > ${{ github.event.action }}/${{ github.event.action }}.json
+          echo '${{ github.event.client_payload.tokens }}' > ${{ github.event.action }}/${{ github.event.action }}.json
 
       # 3. Set up Node.js
       - name: Set up Node.js
