@@ -1,0 +1,13 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --border-sm: 2rem;
+  --border-md: 4rem;
+  --border-lg: 16rem;
+  --border-width-sm: var(--border-sm);
+  --border-width-md: var(--border-md);
+  --border-width-lg: var(--border-lg);
+  --components-sample-100: var(--border-width-sm);
+}
