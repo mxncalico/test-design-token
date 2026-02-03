@@ -1,0 +1,33 @@
+{
+  "border": {
+    "sm": {
+      "type": "dimension",
+      "value": 2
+    },
+    "md": {
+      "type": "dimension",
+      "value": 4
+    },
+    "lg": {
+      "type": "dimension",
+      "value": 16
+    }
+  },
+  "border-width": {
+    "sm": {
+      "description": "",
+      "type": "dimension",
+      "value": "{border.sm}"
+    },
+    "md": {
+      "description": "",
+      "type": "dimension",
+      "value": "{border.md}"
+    },
+    "lg": {
+      "description": "",
+      "type": "dimension",
+      "value": "{border.lg}"
+    }
+  }
+}
